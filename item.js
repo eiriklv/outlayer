@@ -428,7 +428,11 @@ Item.prototype.removeTransitionStyles = function() {
 
 // remove element from DOM
 Item.prototype.removeElem = function() {
-  this.element.parentNode.removeChild( this.element );
+  // sometimes, with React, the parentNode is not accessible
+  if (this.element.parentNode) {
+    this.element.parentNode.removeChild( this.element );
+  }
+
   this.emitEvent( 'remove', [ this ] );
 };
 
